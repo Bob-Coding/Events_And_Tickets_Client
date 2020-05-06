@@ -2,27 +2,26 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
 
 const fetchEventsStart = () => ({
-  type: actionTypes.EVENTS_FETCH_START,
+  type: actionTypes.FETCH_EVENTS_START,
 });
 
 const fetchEventsSuccess = (events) => ({
-  type: actionTypes.EVENTS_FETCH_SUCCES,
+  type: actionTypes.FETCH_EVENTS_SUCCESS,
   events: events,
 });
 
 const fetchEventsFail = (error) => ({
-  type: actionTypes.EVENTS_FETCH_SUCCES,
+  type: actionTypes.FETCH_EVENTS_FAIL,
   error: error,
 });
 
 export const fetchEvents = () => {
-  if (getState().events) return;
   return (dispatch) => {
     dispatch(fetchEventsStart());
     axios
-      .get(`${url}/events.json`)
+      .get(`/events`)
       .then((res) => {
-        dispatch(fetchEventsSuccess(res.body));
+        dispatch(fetchEventsSuccess(res.body.events));
       })
       .catch((err) => {
         dispatch(fetchEventsFail(err));

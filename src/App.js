@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 
 import Events from "./Containers/Events/Events";
+import Layout from "./hoc/Layout/Layout";
 
 class App extends Component {
   render() {
