@@ -21,7 +21,8 @@ export const fetchEvents = () => {
     axios
       .get(`/events`)
       .then((res) => {
-        dispatch(fetchEventsSuccess(res.body.events));
+        console.log(res);
+        dispatch(fetchEventsSuccess(res.data.events));
       })
       .catch((err) => {
         dispatch(fetchEventsFail(err));

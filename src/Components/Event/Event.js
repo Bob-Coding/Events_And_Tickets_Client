@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 
 const event = (props) => {
   return (
-    <div className={classes.Event}>
-      <ul>
-        <li key={event.name}>
-          <Link to={`/events/${event.id}`}>{event.name}</Link>
-        </li>
-      </ul>
-    </div>
+    <Link to={`/events/${props.id}`}>
+      <div className={classes.Event}>
+        <ul>Name: {props.name}</ul>
+      </div>
+    </Link>
   );
 };
 

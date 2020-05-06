@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import "./App.css";
 
 import Events from "./Containers/Events/Events";
 import Layout from "./hoc/Layout/Layout";
@@ -10,7 +11,7 @@ class App extends Component {
       <div className="App">
         <Layout>
           <Route path="/events" component={Events} />
-          <Route path="/" exact render={() => <h1>Home</h1>} />
+          <Route path="/" exact render={() => <h2>Home</h2>} />
         </Layout>
       </div>
     );

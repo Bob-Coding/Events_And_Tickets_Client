@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import * as actions from "../../store/actions/index";
 import Event from "../../Components/Event/Event";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import { connect } from "react-redux";
+import classes from "./Events.module.css";
 
 class Events extends Component {
   componentDidMount() {
@@ -17,6 +19,7 @@ class Events extends Component {
       events = this.props.events.map((event) => (
         <Event
           key={event.id}
+          id={event.id}
           name={event.name}
           description={event.description}
           picture={event.picture}
@@ -25,7 +28,12 @@ class Events extends Component {
         />
       ));
     }
-    return <div>{events}</div>;
+    return (
+      <div className={classes.Events}>
+        <h2>Events:</h2>
+        {events}
+      </div>
+    );
   }
 }
 
