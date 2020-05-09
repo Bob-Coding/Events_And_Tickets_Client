@@ -29,3 +29,68 @@ export const fetchEvents = () => {
       });
   };
 };
+
+const createEventStart = () => ({
+  type: EVENT_CREATE_START,
+});
+
+const createEventSuccess = (event) => ({
+  type: EVENT_CREATE_SUCCESS,
+  event: event,
+});
+
+const createEventFail = (error) => ({
+  type: EVENT_CREATE_FAIL,
+  error: error,
+});
+
+export const createEvent = () => {
+  const state = getState();
+  const { login } = state;
+  return (dispatch) => {
+    dispatch(createEventStart());
+    axios
+      .post(`${url}/events`)
+      .set("Authorization", `Bearer ${login.jwt}`)
+      .send(data)
+      .then((response) => {
+        dispatch(createEventSuccess(response.body));
+      })
+      .catch((err) => {
+        dispatch(createEventFail(err));
+      });
+  };
+};
+
+const deleteEventStart = (id) => ({
+  type: DELETE_EVENT_START,
+  id,
+});
+
+const deleteEventSuccess = (id) => ({
+  type: DELETE_EVENT_SUCCESS,
+  id,
+});
+
+const deleteEventFail = (error) => ({
+  type: DELETE_EVENT_FAIL,
+  error: error,
+});
+
+export const deleteEvent = () => {
+  const state = getState();
+  const { login } = state;
+  return (dispatch) => {
+    dispatch(deleteEventStart());
+    axios
+      .delete(`${url}/events/${id}`)
+      .set("Authorization", `Bearer ${login.jwt}`)
+      .send(data)
+      .then((response) => {
+        dispatch(deleteEventSuccess(id));
+      })
+      .catch((err) => {
+        dispatch(deleteEventFail(err));
+      });
+  };
+};

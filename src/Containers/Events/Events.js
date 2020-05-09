@@ -8,24 +8,59 @@ import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import classes from "./Events.module.css";
 
+import { createEvent } from "../actions/events";
+
 class Events extends Component {
+  state = {
+    name: "",
+    description: "",
+    picture: "",
+    startDate: "",
+    endDate: "",
+  };
+
   componentDidMount() {
     this.props.onFetchEvents();
   }
+
+  onChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    this.props.createEvent(this.state);
+    this.setState({
+      name: "",
+      description: "",
+      picture: "",
+      startDate: "",
+      endDate: "",
+    });
+  };
 
   render() {
     let events = <Spinner />;
     if (!this.props.loading) {
       events = this.props.events.map((event) => (
-        <Event
-          key={event.id}
-          id={event.id}
-          name={event.name}
-          description={event.description}
-          picture={event.picture}
-          startDate={event.startDate}
-          endDate={event.endDate}
-        />
+        <div>
+          <Event
+            key={event.id}
+            id={event.id}
+            name={event.name}
+            description={event.description}
+            picture={event.picture}
+            startDate={event.startDate}
+            endDate={event.endDate}
+          />
+          <CreateEventForm
+            onSubmit={this.onSubmit}
+            onChange={this.onChange}
+            values={this.state}
+          />
+        </div>
       ));
     }
     return (
