@@ -1,6 +1,6 @@
 import React from "react";
 
-CreateEventForm = (props) => {
+const CreateEventForm = (props) => {
   return (
     <div>
       <form onSubmit={props.onSubmit}>
@@ -40,7 +40,6 @@ CreateEventForm = (props) => {
           <input
             name="startDate"
             id="startDate"
-            input
             type="datetime-local"
             onChange={props.onChange}
             value={props.values.startDate}
@@ -51,7 +50,6 @@ CreateEventForm = (props) => {
           <input
             name="endDate"
             id="endDate"
-            input
             type="datetime-local"
             onChange={props.onChange}
             value={props.values.endDate}

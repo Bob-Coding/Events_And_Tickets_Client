@@ -3,12 +3,11 @@ import { connect } from "react-redux";
 
 import * as actions from "../../store/actions/index";
 import Event from "../../Components/Event/Event";
+import CreateEventForm from "../../Components/Event/CreateEventForm/CreateEventForm";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import classes from "./Events.module.css";
-
-import { createEvent } from "../actions/events";
 
 class Events extends Component {
   state = {
@@ -31,7 +30,7 @@ class Events extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.createEvent(this.state);
+    this.props.onCreateEvent(this.state);
     this.setState({
       name: "",
       description: "",
@@ -82,6 +81,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchEvents: () => dispatch(actions.fetchEvents()),
+    onCreateEvent: () => dispatch(actions.createEvent()),
   };
 };
 

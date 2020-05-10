@@ -24,6 +24,40 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error: action.error,
       };
+    case actionTypes.CREATE_EVENT_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case actionTypes.CREATE_EVENT_SUCCESS:
+      if (state) {
+        return {
+          ...state,
+          loading: false,
+          event: action.event,
+        };
+      }
+      break;
+    case actionTypes.CREATE_EVENT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case actionTypes.DELETE_EVENT_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case actionTypes.DELETE_EVENT_SUCCESS:
+      const newState = { ...state };
+      return newState.filter((event) => event.id !== action.id);
+    case actionTypes.DELETE_EVENT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     default:
       return state;
   }

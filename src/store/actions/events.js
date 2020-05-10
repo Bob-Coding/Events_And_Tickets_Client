@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
+const url = "http://localhost:4000";
 
 const fetchEventsStart = () => ({
   type: actionTypes.FETCH_EVENTS_START,
@@ -31,28 +32,32 @@ export const fetchEvents = () => {
 };
 
 const createEventStart = () => ({
-  type: EVENT_CREATE_START,
+  type: actionTypes.CREATE_EVENT_START,
 });
 
 const createEventSuccess = (event) => ({
-  type: EVENT_CREATE_SUCCESS,
+  type: actionTypes.CREATE_EVENT_SUCCESS,
   event: event,
 });
 
 const createEventFail = (error) => ({
-  type: EVENT_CREATE_FAIL,
+  type: actionTypes.CREATE_EVENT_FAIL,
   error: error,
 });
 
-export const createEvent = () => {
-  const state = getState();
-  const { login } = state;
-  return (dispatch) => {
+export const createEvent = (data) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const { login } = state;
     dispatch(createEventStart());
-    axios
-      .post(`${url}/events`)
-      .set("Authorization", `Bearer ${login.jwt}`)
-      .send(data)
+    axios({
+      method: "post",
+      url: "http://localhost:4000/events",
+      data: data,
+      headers: {
+        Authorization: "Bearer " + login.jwt,
+      },
+    })
       .then((response) => {
         dispatch(createEventSuccess(response.body));
       })
@@ -62,30 +67,30 @@ export const createEvent = () => {
   };
 };
 
-const deleteEventStart = (id) => ({
-  type: DELETE_EVENT_START,
-  id,
+const deleteEventStart = () => ({
+  type: actionTypes.DELETE_EVENT_START,
+  loading: true,
 });
 
 const deleteEventSuccess = (id) => ({
-  type: DELETE_EVENT_SUCCESS,
-  id,
+  type: actionTypes.DELETE_EVENT_SUCCESS,
+  loading: false,
+  id: id,
 });
 
 const deleteEventFail = (error) => ({
-  type: DELETE_EVENT_FAIL,
+  type: actionTypes.DELETE_EVENT_FAIL,
   error: error,
 });
 
-export const deleteEvent = () => {
-  const state = getState();
-  const { login } = state;
-  return (dispatch) => {
+export const deleteEvent = (id) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const { login } = state;
     dispatch(deleteEventStart());
     axios
       .delete(`${url}/events/${id}`)
       .set("Authorization", `Bearer ${login.jwt}`)
-      .send(data)
       .then((response) => {
         dispatch(deleteEventSuccess(id));
       })
