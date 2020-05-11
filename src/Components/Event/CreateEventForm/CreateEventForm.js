@@ -1,12 +1,15 @@
 import React from "react";
+import classes from "./CreateEventForm.module.css";
+import Input from "../../UI/Input/Input";
+import Button from "../../UI/Button/Button";
 
 const CreateEventForm = (props) => {
   return (
-    <div>
+    <div className={classes.CreateEventForm}>
       <form onSubmit={props.onSubmit}>
         <label>
           Name:
-          <input
+          <Input
             name="name"
             id="name"
             type="text"
@@ -16,46 +19,46 @@ const CreateEventForm = (props) => {
         </label>
         <label>
           Description:
-          <input
+          <Input
             name="description"
             id="description"
             type="text"
             onChange={props.onChange}
             value={props.values.description}
-          ></input>
+          />
         </label>
         <label>
           Picture:
-          <input
+          <Input
             name="picture"
             id="picture"
             type="text"
             onChange={props.onChange}
             value={props.values.picture}
-          ></input>
+          />
         </label>
         <br />
         <label>
           Start date:
-          <input
+          <Input
             name="startDate"
             id="startDate"
             type="datetime-local"
             onChange={props.onChange}
             value={props.values.startDate}
-          ></input>
+          />
         </label>
         <label>
           End Date:
-          <input
+          <Input
             name="endDate"
             id="endDate"
             type="datetime-local"
             onChange={props.onChange}
             value={props.values.endDate}
-          ></input>
+          />
         </label>
-        <button type="submit">Create Event</button>
+        <Button type="submit">Create Event</Button>
       </form>
     </div>
   );
