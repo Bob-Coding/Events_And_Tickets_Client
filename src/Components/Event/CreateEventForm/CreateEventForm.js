@@ -8,17 +8,14 @@ const CreateEventForm = (props) => {
     <div className={classes.CreateEventForm}>
       <form onSubmit={props.onSubmit}>
         <label>
-          Name:
           <Input
             name="name"
             id="name"
             type="text"
+            placeholder="Your Name"
             onChange={props.onChange}
             value={props.values.name}
           />
-        </label>
-        <label>
-          Description:
           <Input
             name="description"
             id="description"
@@ -26,9 +23,6 @@ const CreateEventForm = (props) => {
             onChange={props.onChange}
             value={props.values.description}
           />
-        </label>
-        <label>
-          Picture:
           <Input
             name="picture"
             id="picture"
@@ -36,10 +30,6 @@ const CreateEventForm = (props) => {
             onChange={props.onChange}
             value={props.values.picture}
           />
-        </label>
-        <br />
-        <label>
-          Start date:
           <Input
             name="startDate"
             id="startDate"
@@ -47,9 +37,6 @@ const CreateEventForm = (props) => {
             onChange={props.onChange}
             value={props.values.startDate}
           />
-        </label>
-        <label>
-          End Date:
           <Input
             name="endDate"
             id="endDate"
@@ -58,7 +45,9 @@ const CreateEventForm = (props) => {
             value={props.values.endDate}
           />
         </label>
-        <Button type="submit">Create Event</Button>
+        <Button btnType="Success" type="submit">
+          CREATE EVENT
+        </Button>
       </form>
     </div>
   );

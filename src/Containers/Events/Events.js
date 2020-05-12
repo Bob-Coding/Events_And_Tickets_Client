@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { checkValidity } from "../../../Components/CheckValidity/CheckVadility";
 import * as actions from "../../store/actions/index";
 import Event from "../../Components/Event/Event";
 import CreateEventForm from "../../Components/Event/CreateEventForm/CreateEventForm";
@@ -11,61 +12,148 @@ import classes from "./Events.module.css";
 
 class Events extends Component {
   state = {
-    name: "",
-    description: "",
-    picture: "",
-    startDate: "",
-    endDate: "",
+    eventForm: {
+      name: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Your Name",
+        },
+        value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
+      },
+      desciption: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Description",
+        },
+        value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
+      },
+      picture: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "URL Picture",
+        },
+        value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
+      },
+      startDate: {
+        elementType: "input",
+        elementConfig: {
+          type: "datetime-local",
+          placeholder: "BeginDate",
+        },
+        value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
+      },
+      endDate: {
+        elementType: "input",
+        elementConfig: {
+          type: "datetime-local",
+          placeholder: "EndDate",
+        },
+        value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
+      },
+      formIsValid: false,
+    },
   };
-
-  componentDidMount() {
-    this.props.onFetchEvents();
-  }
-
-  onChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  onSubmit = (event) => {
+  orderHandler = (event) => {
     event.preventDefault();
-    this.props.onCreateEvent(this.state);
-    this.setState({
-      name: "",
-      description: "",
-      picture: "",
-      startDate: "",
-      endDate: "",
-    });
+    const formData = {};
+    for (let formElementIdentifier in this.state.orderForm) {
+      formData[formElementIdentifier] = this.state.orderForm[
+        formElementIdentifier
+      ].value;
+    }
+    const order = {
+      ingredients: this.props.ings,
+      price: this.props.price,
+      orderData: formData,
+      userId: this.props.userId,
+    };
+    this.props.onOrderBurger(order, this.props.token);
+  };
+
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedOrderForm = {
+      ...this.state.orderForm,
+    };
+    const updatedFormElement = {
+      ...updatedOrderForm[inputIdentifier],
+    };
+    updatedFormElement.value = event.target.value;
+    updatedFormElement.valid = checkValidity(
+      updatedFormElement.value,
+      updatedFormElement.validation
+    );
+    updatedFormElement.touched = true;
+    updatedOrderForm[inputIdentifier] = updatedFormElement;
+
+    let formIsValid = true;
+    for (let inputIdentifier in updatedOrderForm) {
+      formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+    }
+    this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
   };
 
   render() {
-    let events = <Spinner />;
-    if (!this.props.loading) {
-      events = this.props.events.map((event) => (
-        <div>
-          <Event
-            key={event.id}
-            id={event.id}
-            name={event.name}
-            description={event.description}
-            picture={event.picture}
-            startDate={event.startDate}
-            endDate={event.endDate}
+    const formElementsArray = [];
+    for (let key in this.state.orderForm) {
+      formElementsArray.push({
+        id: key,
+        config: this.state.orderForm[key],
+      });
+    }
+    let form = (
+      <form onSubmit={this.orderHandler}>
+        {formElementsArray.map((formElement) => (
+          <Input
+            key={formElement.id}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}
+            invalid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
+            touched={formElement.config.touched}
+            changed={(event) => this.inputChangedHandler(event, formElement.id)}
           />
-          <CreateEventForm
-            onSubmit={this.onSubmit}
-            onChange={this.onChange}
-            values={this.state}
-          />
-        </div>
-      ));
+        ))}
+        <Button btnType="Success" disabled={!this.state.formIsValid}>
+          ORDER
+        </Button>
+      </form>
+    );
+    if (this.props.loading) {
+      form = <Spinner />;
     }
     return (
-      <div className={classes.Events}>
-        <h2>Events:</h2>
-        {events}
+      <div className={classes.ContactData}>
+        <h4>Enter Your Event Data</h4>
+        {form}
       </div>
     );
   }
@@ -73,15 +161,16 @@ class Events extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    events: state.events.events,
-    loading: state.events.loading,
+    loading: state.order.loading,
+    token: state.auth.token,
+    userId: state.auth.userId,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchEvents: () => dispatch(actions.fetchEvents()),
-    onCreateEvent: () => dispatch(actions.createEvent()),
+    onOrderBurger: (eventForm, token) =>
+      dispatch(this.props.onCreateEvent(eventForm, token)),
   };
 };
 
