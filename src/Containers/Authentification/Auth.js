@@ -8,6 +8,8 @@ import Button from "../../Components/UI/Button/Button";
 import classes from "./Auth.module.css";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 import * as actions from "../../store/actions/index";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import axios from "../../axios-orders";
 
 class Auth extends Component {
   state = {
@@ -155,4 +157,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(MapStateToProps, mapDispatchToProps)(Auth);
+export default connect(
+  MapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(Auth, axios));
