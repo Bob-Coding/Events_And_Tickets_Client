@@ -30,8 +30,6 @@ class App extends Component {
           <Route path="/logout" component={Logout} />
           <Route path="/auth" component={Auth} />
           <Route path="/" exact component={Home} />
-
-          <Redirect to="/" />
         </Switch>
       );
     }

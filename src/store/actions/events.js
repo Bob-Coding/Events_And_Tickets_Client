@@ -2,19 +2,25 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
 const url = "http://localhost:4000";
 
-const fetchEventsStart = () => ({
-  type: actionTypes.FETCH_EVENTS_START,
-});
+const fetchEventsStart = () => {
+  return {
+    type: actionTypes.FETCH_EVENTS_START,
+  };
+};
 
-const fetchEventsSuccess = (events) => ({
-  type: actionTypes.FETCH_EVENTS_SUCCESS,
-  events: events,
-});
+const fetchEventsSuccess = (events) => {
+  return {
+    type: actionTypes.FETCH_EVENTS_SUCCESS,
+    events: events,
+  };
+};
 
-const fetchEventsFail = (error) => ({
-  type: actionTypes.FETCH_EVENTS_FAIL,
-  error: error,
-});
+const fetchEventsFail = (error) => {
+  return {
+    type: actionTypes.FETCH_EVENTS_FAIL,
+    error: error,
+  };
+};
 
 export const fetchEvents = () => {
   return (dispatch) => {
@@ -31,35 +37,40 @@ export const fetchEvents = () => {
   };
 };
 
-const createEventStart = () => ({
-  type: actionTypes.CREATE_EVENT_START,
-});
+const createEventStart = () => {
+  return {
+    type: actionTypes.CREATE_EVENT_START,
+  };
+};
 
-const createEventSuccess = (event) => ({
-  type: actionTypes.CREATE_EVENT_SUCCESS,
-  event: event,
-});
+const createEventSuccess = (id, eventData) => {
+  return {
+    type: actionTypes.CREATE_EVENT_SUCCESS,
+    eventData: eventData,
+    eventId: id,
+  };
+};
 
-const createEventFail = (error) => ({
-  type: actionTypes.CREATE_EVENT_FAIL,
-  error: error,
-});
+const createEventFail = (error) => {
+  return {
+    type: actionTypes.CREATE_EVENT_FAIL,
+    error: error,
+  };
+};
 
-export const createEvent = (data) => {
-  return (dispatch, getState) => {
-    const state = getState();
-    const { login } = state;
+export const createEvent = (eventData, token) => {
+  return (dispatch) => {
     dispatch(createEventStart());
     axios({
       method: "post",
       url: "http://localhost:4000/events",
-      data: data,
+      data: eventData,
       headers: {
-        Authorization: "Bearer " + login.jwt,
+        Authorization: "Bearer " + token,
       },
     })
       .then((response) => {
-        dispatch(createEventSuccess(response.body));
+        dispatch(createEventSuccess(response.data.name, eventData));
       })
       .catch((err) => {
         dispatch(createEventFail(err));
@@ -67,21 +78,27 @@ export const createEvent = (data) => {
   };
 };
 
-const deleteEventStart = () => ({
-  type: actionTypes.DELETE_EVENT_START,
-  loading: true,
-});
+const deleteEventStart = () => {
+  return {
+    type: actionTypes.DELETE_EVENT_START,
+    loading: true,
+  };
+};
 
-const deleteEventSuccess = (id) => ({
-  type: actionTypes.DELETE_EVENT_SUCCESS,
-  loading: false,
-  id: id,
-});
+const deleteEventSuccess = (id) => {
+  return {
+    type: actionTypes.DELETE_EVENT_SUCCESS,
+    loading: false,
+    id: id,
+  };
+};
 
-const deleteEventFail = (error) => ({
-  type: actionTypes.DELETE_EVENT_FAIL,
-  error: error,
-});
+const deleteEventFail = (error) => {
+  return {
+    type: actionTypes.DELETE_EVENT_FAIL,
+    error: error,
+  };
+};
 
 export const deleteEvent = (id) => {
   return (dispatch, getState) => {

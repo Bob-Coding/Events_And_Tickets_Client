@@ -57,16 +57,13 @@ export const auth = (email, password, isSignup) => {
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
         );
-        console.log(response.data);
-        localStorage.setItem("token", response.data.idToken);
+        localStorage.setItem("token", response.data.jwt);
         localStorage.setItem("expirationDate", expirationDate);
-        localStorage.setItem("userId", response.data.localId);
-        console.log(localStorage);
-        dispatch(authSuccess(response.data.idToken, response.data.localId));
+        localStorage.setItem("userId", response.data.userId);
+        dispatch(authSuccess(response.data.jwt, response.data.userId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch((err) => {
-        console.log(err);
         dispatch(authFail(err));
       });
   };
