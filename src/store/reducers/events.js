@@ -30,14 +30,11 @@ const reducer = (state = initialState, action) => {
         loading: true,
       };
     case actionTypes.CREATE_EVENT_SUCCESS:
-      if (state) {
-        return {
-          ...state,
-          loading: false,
-          event: action.event,
-        };
-      }
-      break;
+      return {
+        ...state,
+        loading: false,
+        event: action.event,
+      };
     case actionTypes.CREATE_EVENT_FAIL:
       return {
         ...state,
