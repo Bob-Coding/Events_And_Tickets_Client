@@ -30,7 +30,7 @@ class App extends Component {
           <Route path="/events" component={Events} />
           <Route path="/logout" component={Logout} />
           <Route path="/auth" component={Auth} />
-          <Route path="/events/:event" component={EventDetails} />
+          <Route path="/events/:eventId" component={EventDetails} />
           <Route path="/" exact component={Home} />
 
           <Redirect to="/" />
