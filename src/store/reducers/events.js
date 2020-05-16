@@ -30,10 +30,14 @@ const reducer = (state = initialState, action) => {
         loading: true,
       };
     case actionTypes.CREATE_EVENT_SUCCESS:
+      const newEvent = {
+        ...action.eventData,
+        id: action.eventId,
+      };
       return {
         ...state,
         loading: false,
-        event: action.event,
+        events: state.events.concat(newEvent),
       };
     case actionTypes.CREATE_EVENT_FAIL:
       return {

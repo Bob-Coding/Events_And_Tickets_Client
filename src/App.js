@@ -7,6 +7,7 @@ import Home from "./Containers/Home/Home";
 import Events from "./Containers/Events/Events";
 import Auth from "./Containers/Authentification/Auth";
 import Logout from "./Containers/Authentification/Logout/Logout";
+import EventDetails from "./Containers/Events/EventDetails/EventDetails";
 import * as actions from "./store/actions/index";
 import "./App.css";
 
@@ -29,7 +30,10 @@ class App extends Component {
           <Route path="/events" component={Events} />
           <Route path="/logout" component={Logout} />
           <Route path="/auth" component={Auth} />
+          <Route path="/events/:event" component={EventDetails} />
           <Route path="/" exact component={Home} />
+
+          <Redirect to="/" />
         </Switch>
       );
     }

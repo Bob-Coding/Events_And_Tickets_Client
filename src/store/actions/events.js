@@ -70,7 +70,7 @@ export const createEvent = (eventData, token) => {
       },
     })
       .then((response) => {
-        dispatch(createEventSuccess(response.data.name, eventData));
+        dispatch(createEventSuccess(response.data.id, response.data));
       })
       .catch((err) => {
         dispatch(createEventFail(err));
