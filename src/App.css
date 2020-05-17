@@ -7,8 +7,8 @@
   background-color: rgb(211, 211, 211);
   grid-column: full-start / col-end 6;
   background-image: linear-gradient(
-      rgba(211, 211, 211, 0.7),
-      rgba(169, 169, 169, 0.7)
+      rgba(211, 211, 211, 0.9),
+      rgba(169, 169, 169, 0.9)
     ),
     url(./Pictures/backgroundimg.jpg);
   background-size: cover;

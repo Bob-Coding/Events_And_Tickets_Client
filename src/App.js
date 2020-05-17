@@ -27,10 +27,11 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
+          <Route path="/events/:id" component={EventDetails} />
           <Route path="/events" component={Events} />
           <Route path="/logout" component={Logout} />
           <Route path="/auth" component={Auth} />
-          <Route path="/events/:eventId" component={EventDetails} />
+
           <Route path="/" exact component={Home} />
 
           <Redirect to="/" />

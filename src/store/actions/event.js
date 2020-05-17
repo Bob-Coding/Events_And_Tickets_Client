@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
+const url = "http://localhost:4000";
 
 const fetchEventStart = () => {
   return {
@@ -21,13 +22,13 @@ const fetchEventFail = (error) => {
   };
 };
 
-const fetchEvent = (id) => {
+export const fetchEvent = (id) => {
   return (dispatch) => {
     dispatch(fetchEventStart());
     axios
       .get(`http://localhost:4000/events/${id}`)
       .then((res) => {
-        dispatch(fetchEventSuccess(res.body));
+        dispatch(fetchEventSuccess(res.data));
       })
       .catch((error) => {
         dispatch(fetchEventFail(error));
@@ -56,22 +57,19 @@ const updateEventFail = (error) => {
   };
 };
 
-const updateEvent = (eventData, token) => {
+export const updateEvent = (id, eventData) => {
   return (dispatch) => {
     dispatch(updateEventStart());
     axios({
       method: "put",
-      url: "http://localhost:4000/events/:eventId",
+      url: `http://localhost:4000/events/${id}`,
       data: eventData,
-      headers: {
-        Authorization: "Bearer " + token,
-      },
     })
       .then((response) => {
         dispatch(updateEventSuccess(response.data.id, response.data));
       })
       .catch((err) => {
-        dispatch(createEventFail(err));
+        dispatch(updateEventFail(err));
       });
   };
 };

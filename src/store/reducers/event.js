@@ -1,6 +1,6 @@
-import * as actionTypes from "../actions/event";
+import * as actionTypes from "../actions/actionTypes";
 
-initialState = {
+const initialState = {
   event: null,
   loading: false,
 };
@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        event: action.event,
+        event: action.event[0],
       };
     case actionTypes.FETCH_EVENT_FAIL:
       return {

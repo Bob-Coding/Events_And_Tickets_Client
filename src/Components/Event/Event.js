@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 const event = (props) => {
   return (
     <Link to={`/events/${props.id}`}>
-      <div className={classes.Event}>Name: {props.name}</div>
+      <div className={classes.Event}>
+        <h1>{props.name}</h1>
+      </div>
     </Link>
   );
 };

@@ -157,6 +157,7 @@ const mapStateToProps = (state) => {
     loading: state.events.loading,
     userId: state.auth.userId,
     token: state.auth.token,
+    event: state.event.event,
   };
 };
 
