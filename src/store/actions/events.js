@@ -100,14 +100,14 @@ const deleteEventFail = (error) => {
   };
 };
 
-export const deleteEvent = (id) => {
+export const deleteEvent = (id, token) => {
   return (dispatch, getState) => {
     const state = getState();
     const { login } = state;
     dispatch(deleteEventStart());
     axios
       .delete(`${url}/events/${id}`)
-      .set("Authorization", `Bearer ${login.jwt}`)
+      .set("Authorization", `Bearer` + token)
       .then((response) => {
         dispatch(deleteEventSuccess(id));
       })

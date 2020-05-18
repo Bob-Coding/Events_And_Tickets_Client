@@ -16,17 +16,14 @@ const EventDetails = (props) => {
               <i>Date: {props.event.startDate} - </i>
               <i>{props.event.endDate}</i>
             </p>
-
             <p>
               <i>description: {props.event.description}</i>
             </p>
-
-            <p>
-              <img src={props.event.picture} alt="event" />
+            <p className={classes.Picture}>
+              <img src={props.event.picture} width="200px" alt="event" />
             </p>
           </div>
           <div>
-            {console.log(props.hasCreatedEvent(props.userId))}
             {props.hasCreatedEvent(props.userId) && (
               <Button btnType="Danger" onClick={props.onDelete}>
                 DELETE EVENT

@@ -7,10 +7,10 @@
   box-shadow: 0 2px 3px #ccc;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 700px) {
   .EventDetails {
     text-align: center;
-    margin: 10px 20px 30px;
+    margin: 50px 400px;
     height: 450px;
     box-sizing: border-box;
     border: 1px solid #eee;
