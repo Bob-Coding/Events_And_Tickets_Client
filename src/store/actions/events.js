@@ -101,13 +101,15 @@ const deleteEventFail = (error) => {
 };
 
 export const deleteEvent = (id, token) => {
-  return (dispatch, getState) => {
-    const state = getState();
-    const { login } = state;
+  return (dispatch) => {
     dispatch(deleteEventStart());
-    axios
-      .delete(`${url}/events/${id}`)
-      .set("Authorization", `Bearer` + token)
+    axios({
+      method: "delete",
+      url: `http://localhost:4000/events/${id}`,
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
       .then((response) => {
         dispatch(deleteEventSuccess(id));
       })

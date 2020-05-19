@@ -90,7 +90,12 @@ class EventDetailsContainer extends React.Component {
     const updatedFormElement = {
       ...updatedEventForm[formElement],
     };
-    updatedFormElement.value = this.props.event.value;
+    const formData = {};
+    for (let formElement in this.state.eventForm) {
+      formData[formElement] = this.state.eventForm[formElement].value;
+    }
+
+    updatedFormElement.value = this.props.event[0].value;
     updatedEventForm[formElement] = updatedFormElement;
     this.setState({
       editMode: true,
@@ -136,7 +141,7 @@ class EventDetailsContainer extends React.Component {
 
   deleteEventHandler = () => {
     this.props.onDeleteEvent(this.props.event.id, this.props.token);
-    this.props.history.push("/");
+    this.props.history.push("/events");
   };
 
   hasCreated = () => {

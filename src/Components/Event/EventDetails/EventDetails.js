@@ -38,7 +38,7 @@ const EventDetails = (props) => {
               <CreateEventForm
                 changed={props.changed}
                 onSubmitEvent={props.onSubmitEvent}
-                values={props.formValues}
+                values={props.values}
               />
             )}
           </div>
