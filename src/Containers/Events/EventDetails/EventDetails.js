@@ -6,6 +6,7 @@ import { deleteEvent } from "../../../store/actions/events";
 import Spinner from "../../../Components/UI/Spinner/Spinner";
 import classes from "./EventDetails.module.css";
 import { checkValidity } from "../../../Components/Validation/CheckValidity";
+import CreateEventForm from "../../../Components/Event/CreateEventForm/CreateEventForm";
 
 class EventDetailsContainer extends React.Component {
   state = {
@@ -90,12 +91,7 @@ class EventDetailsContainer extends React.Component {
     const updatedFormElement = {
       ...updatedEventForm[formElement],
     };
-    const formData = {};
-    for (let formElement in this.state.eventForm) {
-      formData[formElement] = this.state.eventForm[formElement].value;
-    }
 
-    updatedFormElement.value = this.props.event[0].value;
     updatedEventForm[formElement] = updatedFormElement;
     this.setState({
       editMode: true,
@@ -141,12 +137,12 @@ class EventDetailsContainer extends React.Component {
 
   deleteEventHandler = () => {
     this.props.onDeleteEvent(this.props.event.id, this.props.token);
-    this.props.history.push("/events");
+    this.props.history.push("/");
   };
 
-  hasCreated = () => {
-    if (this.props.event && this.props.event.userId && this.props.userId) {
-      return this.props.event.userId === this.props.userId;
+  hasCreated = (id) => {
+    if (this.props.event && this.props.event.userId && id) {
+      return this.props.event.userId === id;
     }
   };
 
@@ -155,7 +151,7 @@ class EventDetailsContainer extends React.Component {
     if (!this.props.loading) {
       event = (
         <EventDetails
-          onEdit={(formElement) => this.onEdit(formElement)}
+          onEdit={(element) => this.onEdit()}
           changed={this.inputChangedHandler}
           onSubmitEvent={this.submitHandler}
           values={this.state}
@@ -172,6 +168,13 @@ class EventDetailsContainer extends React.Component {
       <div className={classes.Event}>
         <h1>Event</h1>
         {event}
+        {this.state.editMode ? (
+          <CreateEventForm
+            onSubmitEvent={this.submitHandler}
+            changed={this.inputChangedHandler}
+            values={this.state}
+          />
+        ) : null}
       </div>
     );
   }

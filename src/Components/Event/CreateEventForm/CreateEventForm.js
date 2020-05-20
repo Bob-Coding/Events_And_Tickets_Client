@@ -11,7 +11,6 @@ const CreateEventForm = (props) => {
       config: props.values.eventForm[key],
     });
   }
-
   let form = formElementsArray.map((formElement) => (
     <Input
       key={formElement.id}
@@ -26,12 +25,10 @@ const CreateEventForm = (props) => {
   ));
 
   return (
-    <div className={classes.CreateEventForm}>
-      <form onSubmit={props.onSubmitEvent}>
-        {form}
-        <Button btnType="Success">CREATE</Button>
-      </form>
-    </div>
+    <form onSubmit={props.onSubmitEvent}>
+      {form}
+      <Button btnType="Success">CREATE</Button>
+    </form>
   );
 };
 
