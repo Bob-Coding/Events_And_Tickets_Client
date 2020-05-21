@@ -25,7 +25,7 @@ const CreateEventForm = (props) => {
   ));
 
   return (
-    <form onSubmit={props.onSubmitEvent}>
+    <form className={classes.CreateEventForm} onSubmit={props.onSubmitEvent}>
       {form}
       <Button btnType="Success">CREATE</Button>
     </form>

@@ -12,8 +12,8 @@
   display: block;
 }
 
-@media (mid-width: 600px) {
+@media (mid-width: 1200px) {
   .CreateEventForm {
-    width: 500px;
+    text-align: center;
   }
 }

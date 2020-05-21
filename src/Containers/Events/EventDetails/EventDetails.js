@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+
 import EventDetails from "../../../Components/Event/EventDetails/EventDetails";
 import * as actions from "../../../store/actions/index";
 import { deleteEvent } from "../../../store/actions/events";
@@ -84,18 +85,9 @@ class EventDetailsContainer extends React.Component {
     this.props.onFetchEvent(Number(this.props.match.params.id));
   }
 
-  onEdit = (formElement) => {
-    const updatedEventForm = {
-      ...this.state.eventForm,
-    };
-    const updatedFormElement = {
-      ...updatedEventForm[formElement],
-    };
-
-    updatedEventForm[formElement] = updatedFormElement;
+  onEdit = () => {
     this.setState({
-      editMode: true,
-      eventForm: updatedEventForm,
+      editMode: !this.state.editMode,
     });
   };
 
@@ -137,7 +129,7 @@ class EventDetailsContainer extends React.Component {
 
   deleteEventHandler = () => {
     this.props.onDeleteEvent(this.props.event.id, this.props.token);
-    this.props.history.push("/");
+    this.props.history.push("/events");
   };
 
   hasCreated = (id) => {
@@ -151,7 +143,7 @@ class EventDetailsContainer extends React.Component {
     if (!this.props.loading) {
       event = (
         <EventDetails
-          onEdit={(element) => this.onEdit()}
+          onEdit={this.onEdit}
           changed={this.inputChangedHandler}
           onSubmitEvent={this.submitHandler}
           values={this.state}
@@ -163,18 +155,22 @@ class EventDetailsContainer extends React.Component {
         />
       );
     }
+    let eventform = null;
+    if (this.state.editMode) {
+      eventform = (
+        <CreateEventForm
+          onSubmitEvent={this.submitHandler}
+          changed={this.inputChangedHandler}
+          values={this.state}
+        />
+      );
+    }
 
     return (
       <div className={classes.Event}>
         <h1>Event</h1>
         {event}
-        {this.state.editMode ? (
-          <CreateEventForm
-            onSubmitEvent={this.submitHandler}
-            changed={this.inputChangedHandler}
-            values={this.state}
-          />
-        ) : null}
+        {eventform}
       </div>
     );
   }

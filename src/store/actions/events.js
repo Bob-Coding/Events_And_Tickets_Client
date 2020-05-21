@@ -63,7 +63,7 @@ export const createEvent = (eventData, token) => {
     dispatch(createEventStart());
     axios({
       method: "post",
-      url: "http://localhost:4000/events",
+      url: `${url}/events`,
       data: eventData,
       headers: {
         Authorization: "Bearer " + token,
@@ -105,7 +105,7 @@ export const deleteEvent = (id, token) => {
     dispatch(deleteEventStart());
     axios({
       method: "delete",
-      url: `http://localhost:4000/events/${id}`,
+      url: `${url}/events/${id}`,
       headers: {
         Authorization: "Bearer " + token,
       },

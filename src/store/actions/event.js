@@ -26,7 +26,7 @@ export const fetchEvent = (id) => {
   return (dispatch) => {
     dispatch(fetchEventStart());
     axios
-      .get(`http://localhost:4000/events/${id}`)
+      .get(`${url}/events/${id}`)
       .then((res) => {
         dispatch(fetchEventSuccess(res.data));
       })
@@ -62,10 +62,11 @@ export const updateEvent = (id, eventData) => {
     dispatch(updateEventStart());
     axios({
       method: "put",
-      url: `http://localhost:4000/events/${id}`,
+      url: `${url}/events/${id}`,
       data: eventData,
     })
       .then((response) => {
+        console.log(response.data);
         dispatch(updateEventSuccess(response.data.id, response.data));
       })
       .catch((err) => {
