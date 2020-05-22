@@ -11,9 +11,8 @@
 .Input {
   display: block;
 }
-
-@media (mid-width: 1200px) {
+@media (min-width: 1200px) {
   .CreateEventForm {
-    text-align: center;
+    width: 40%;
   }
 }

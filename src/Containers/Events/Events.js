@@ -9,9 +9,11 @@ import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import classes from "./Events.module.css";
 import CreateEventForm from "../../Components/Event/CreateEventForm/CreateEventForm";
+import Button from "../../Components/UI/Button/Button";
 
 class Events extends Component {
   state = {
+    showEventForm: false,
     eventForm: {
       name: {
         elementType: "input",
@@ -120,6 +122,10 @@ class Events extends Component {
     this.props.onCreateEvent(formToSubmit, this.props.token);
   };
 
+  showEventFormHandler = () => {
+    this.setState({ showEventForm: !this.state.showEventForm });
+  };
+
   render() {
     let events = <Spinner />;
     if (!this.props.loading) {
@@ -137,15 +143,26 @@ class Events extends Component {
         </div>
       ));
     }
-    return (
-      <div className={classes.Events}>
-        <h1>Events</h1>
-        {events}
+
+    let eventform = null;
+    if (this.state.showEventForm) {
+      eventform = (
         <CreateEventForm
           onSubmitEvent={this.submitHandler}
           changed={this.inputChangedHandler}
           values={this.state}
         />
+      );
+    }
+
+    return (
+      <div className={classes.Events}>
+        <h1>Events</h1>
+        {events}
+        <Button btnType="Success" clicked={this.showEventFormHandler}>
+          CREATE NEW EVENT
+        </Button>
+        {eventform}
       </div>
     );
   }
