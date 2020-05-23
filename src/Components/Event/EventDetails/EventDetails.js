@@ -18,7 +18,7 @@ const EventDetails = (props) => {
             <i>description: {props.event.description}</i>
           </p>
           <p className={classes.Picture}>
-            <img src={props.event.picture} width="200px" alt="event" />
+            <img src={props.event.picture} alt="event" />
           </p>
         </div>
       )}
