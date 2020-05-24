@@ -8,6 +8,7 @@ import Spinner from "../../../Components/UI/Spinner/Spinner";
 import classes from "./EventDetails.module.css";
 import { checkValidity } from "../../../Components/Validation/CheckValidity";
 import CreateEventForm from "../../../Components/Event/CreateEventForm/CreateEventForm";
+import Tickets from "./Tickets/Tickets";
 
 class EventDetailsContainer extends React.Component {
   state = {
@@ -155,6 +156,7 @@ class EventDetailsContainer extends React.Component {
         />
       );
     }
+
     let eventform = null;
     if (this.state.editMode) {
       eventform = (
@@ -166,11 +168,18 @@ class EventDetailsContainer extends React.Component {
       );
     }
 
+    let tickets = null;
+    if (this.props.event && this.props.tickets) {
+      tickets = <Tickets event={this.props.event} />;
+    }
+
     return (
       <div className={classes.Event}>
         <h1>Event</h1>
         {event}
         {eventform}
+        <h2>Tickets:</h2>
+        {tickets}
       </div>
     );
   }
@@ -181,6 +190,7 @@ const mapStateToProps = (state) => ({
   loading: state.event.loading,
   userId: state.auth.userId,
   token: state.auth.token,
+  tickets: state.tickets.tickets,
 });
 
 const mapDispatchToProps = (dispatch) => {

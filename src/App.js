@@ -6,6 +6,7 @@ import Layout from "./hoc/Layout/Layout";
 import Home from "./Containers/Home/Home";
 import Events from "./Containers/Events/Events";
 import Auth from "./Containers/Authentification/Auth";
+import Tickets from "./Containers/Events/EventDetails/Tickets/Tickets";
 import Logout from "./Containers/Authentification/Logout/Logout";
 import EventDetails from "./Containers/Events/EventDetails/EventDetails";
 import * as actions from "./store/actions/index";
@@ -27,13 +28,12 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
+          <Route path="/tickets/:id" component={Tickets} />
           <Route path="/events/:id" component={EventDetails} />
           <Route path="/events" component={Events} />
           <Route path="/logout" component={Logout} />
           <Route path="/auth" component={Auth} />
-
           <Route path="/" exact component={Home} />
-
           <Redirect to="/" />
         </Switch>
       );
