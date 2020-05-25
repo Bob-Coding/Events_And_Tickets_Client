@@ -6,7 +6,10 @@ const ticket = (props) => {
   return (
     <Link to={`/tickets/${props.id}`}>
       <div className={classes.Ticket}>
-        <img src={props.picture} alt="PictureExample" /> price:
+        <div className={classes.TicketPicture}>
+          <img src={props.picture} alt="PictureExample" />
+        </div>
+        price:
         {props.price} description: {props.description}
       </div>
     </Link>

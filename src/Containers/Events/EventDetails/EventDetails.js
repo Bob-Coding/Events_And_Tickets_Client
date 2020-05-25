@@ -130,7 +130,7 @@ class EventDetailsContainer extends React.Component {
 
   deleteEventHandler = () => {
     this.props.onDeleteEvent(this.props.event.id, this.props.token);
-    this.props.history.push("/events");
+    this.props.history.push("/");
   };
 
   hasCreated = (id) => {
