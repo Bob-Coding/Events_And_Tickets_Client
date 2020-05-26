@@ -169,7 +169,7 @@ class EventDetailsContainer extends React.Component {
     }
 
     let tickets = null;
-    if (this.props.event && this.props.event.tickets.length > 0) {
+    if (this.props.event) {
       tickets = <Tickets event={this.props.event} />;
     }
 
