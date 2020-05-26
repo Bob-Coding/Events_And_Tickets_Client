@@ -169,7 +169,7 @@ class EventDetailsContainer extends React.Component {
     }
 
     let tickets = null;
-    if (this.props.event && this.props.tickets) {
+    if (this.props.event && this.props.event.tickets.length > 0) {
       tickets = <Tickets event={this.props.event} />;
     }
 
@@ -190,7 +190,6 @@ const mapStateToProps = (state) => ({
   loading: state.event.loading,
   userId: state.auth.userId,
   token: state.auth.token,
-  tickets: state.tickets.tickets,
 });
 
 const mapDispatchToProps = (dispatch) => {

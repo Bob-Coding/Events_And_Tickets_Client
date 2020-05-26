@@ -1,5 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
-initialState = {
+
+const initialState = {
   loading: false,
   ticket: null,
 };

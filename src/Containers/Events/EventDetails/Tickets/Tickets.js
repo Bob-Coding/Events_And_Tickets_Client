@@ -6,13 +6,12 @@ import * as actions from "../../../../store/actions/index";
 
 class Tickets extends React.Component {
   componentDidMount() {
-    console.log("fetching", this.props);
     this.props.onFetchTickets(this.props.event.id);
   }
 
   render() {
     let tickets = <Spinner />;
-    if (this.props.tickets) {
+    if (!this.props.loading) {
       tickets = this.props.tickets.map((ticket) => (
         <div key={ticket.id}>
           <Ticket
@@ -39,6 +38,7 @@ const mapStateToProps = (state) => {
   return {
     tickets: state.tickets.tickets,
     event: state.event.event,
+    loading: state.tickets.loading,
   };
 };
 

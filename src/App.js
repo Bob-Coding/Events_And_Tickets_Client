@@ -9,6 +9,7 @@ import Auth from "./Containers/Authentification/Auth";
 import Tickets from "./Containers/Events/EventDetails/Tickets/Tickets";
 import Logout from "./Containers/Authentification/Logout/Logout";
 import EventDetails from "./Containers/Events/EventDetails/EventDetails";
+// import TicketDetails from "./Containers/Events/EventDetails/Tickets/TicketDetails/TicketDetails";
 import * as actions from "./store/actions/index";
 import "./App.css";
 
@@ -28,7 +29,8 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/tickets/:id" component={Tickets} />
+          {/* <Route path="/tickets/:id" component={TicketDetails} /> */}
+          <Route path="/events/:id/tickets" component={Tickets} />
           <Route path="/events/:id" component={EventDetails} />
           <Route path="/events" component={Events} />
           <Route path="/logout" component={Logout} />
