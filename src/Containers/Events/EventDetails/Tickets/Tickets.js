@@ -99,8 +99,8 @@ class Tickets extends React.Component {
 
   render() {
     let tickets = <Spinner />;
-    if (!this.props.loading) {
-      tickets = this.props.event.tickets.map((ticket) => (
+    if (!this.props.loading && this.props.tickets) {
+      tickets = this.props.tickets.map((ticket) => (
         <div key={ticket.id}>
           <Ticket
             key={ticket.id}

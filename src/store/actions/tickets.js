@@ -66,6 +66,7 @@ export const createTicket = (ticketData, token) => {
       },
     })
       .then((response) => {
+        console.log(response);
         dispatch(createTicketSuccess(response.data.id, response.data));
       })
       .catch((err) => {
