@@ -9,10 +9,8 @@ const TicketDetails = (props) => {
     <Aux>
       {props.ticket && (
         <div className={classes.TicketDetails}>
-          <h1>{props.ticket.name}</h1>
           <p>
-            <i>Date: {props.ticket.startDate} - </i>
-            <i>{props.ticket.endDate}</i>
+            <i>Price: €{props.ticket.price} - </i>
           </p>
           <p>
             <i>description: {props.ticket.description}</i>
